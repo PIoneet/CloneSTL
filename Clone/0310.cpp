@@ -3,24 +3,39 @@
 using std::cout;
 using std::endl;
 
-// 1. void tmepFunc(int num, int num){} 이랑 void tempFunc(int& num, int& num){}
-// 정확히 컴파일러가 구분하는지 궁금하네.
-using namespace std;
+class Dog{
+public:
+    Dog() = default;
+    Dog(int val) : num(val) {}
 
-void distinguishValue(int& a)
-{
-    cout << "Lvalue." << endl;
-}
+    /*
+    operator bool(){
+        return num; //num이 0이면 false를 출력한다.
+    }
+    */
 
-void distinguishValue(int&& a)
-{
-    cout << "Rvalue." << endl;
-}
+    explicit operator char(){
+        return num;
+    }
+
+    explicit operator int(){
+        return num;
+    }
+
+    explicit operator double(){
+        return num;
+    }
+
+private:
+    int num{};
+
+};
+
 
 int main()
 {
-    int a = 100;
-    distinguishValue(a);    // 이름 있는 메모리
-    distinguishValue(1000); //임시 객체
-    distinguishValue(std::move(a));
+    Dog d(65); //오 65하니까 아스키 코드 'A'나왔음.
+    cout << static_cast<char>(d) << endl; //d를 int로 형변환해서 num을 출력한다.
+    cout << static_cast<double>(d) << endl;
+
 }
