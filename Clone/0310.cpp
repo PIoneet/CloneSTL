@@ -7,6 +7,16 @@ using std::ostream;
 using std::string;
 using namespace std::string_literals;
 
+
+
+template<class T>
+void testCompiler(const T& d1)
+{
+    cout << d1 << endl;
+    cout << "Template wins" << endl;
+}
+
+
 class Dog{
 public:
     Dog() = default;
@@ -22,12 +32,6 @@ friend ostream& operator<<(ostream& os, const Dog& dog){
 // const가 없으면 Dog d1{};는 출력가능해도 Dog(223)는 출력 못한다. 
 };
 
-template<class T>
-void testCompiler(const T& d1)
-{
-    cout << d1 << endl;
-    cout << "Template wins" << endl;
-}
 
 template<>
 void testCompiler<int>(const int& d1)
@@ -53,10 +57,10 @@ void testCompiler<const char*>(const char* const& d1)
 
 int main()
 {
-    string name = "SunHongJae";
-   testCompiler((const char*)"Hello What's up");
-   testCompiler("Hello"s);
-   testCompiler(string("I Am String , Nice to Meet you"));
+    int a{1};
+    Dog d1{100};
+    testCompiler(a);
+    testCompiler(d1);
    // 문자열 리터럴은 string이 아니기 떄문에 string 특수화가 아니라 템플릿에서 실행됨.
    // "Hello"는 컴파일러 입장에서 string이 아니라 const char[]이다.
    
