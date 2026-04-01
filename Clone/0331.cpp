@@ -1,41 +1,52 @@
 #include <iostream>
+#include <chrono>
 
 using std::cout;
 using std::endl;
+using namespace std;
+
+
+
+int 오름차순(const void* a, const void* b)
+{
+    return *(int*)a - *(int*)b;
+    //만약 double 2개를 받으면 큰일난다. 
+    // 00 00 00 00 00 3F F0 이렇게 받았는데 4바이트 읽으면 
+    //a가 1.0인데 00 00 00 00읽어서 0이라고 인식해버리니까.
+}
 
 void f()
 {
     cout<< "Fuction Address" << endl;
 }
 
-void g()
+void ff()
 {
-    cout << "second Function Address" << endl;
+    cout << "Fuction Changed" << endl;
 }
+
+
 
 int main()
 {
-    int a;
-    cout << (void*)f << endl;
-    cout << std::addressof(g) << endl;
-    cout << std::addressof(a) << endl;
+    
+    
+    auto start = chrono::high_resolution_clock::now();
+    for(int i = 0; i < 100; i++){
+        cout << "Hello" << '\n';
+    }
+    auto stop = chrono::high_resolution_clock::now();
 
+    auto duration = chrono::duration_cast<std::chrono::milliseconds>(stop-start);
 
+    cout << duration.count() << endl;
+
+    void (*gg)() = f; 
+    gg();
+
+    gg = ff;
+    gg();
 }
-// 코드 세그먼트(함수) 와 < -> 데이터/스택 영역은 구분된다. 
-// cout은 데이터 영역은 자동으로 오버로딩 해서 주소 찍어주는데
-// 함수 포인터는 그렇지 않다.
 
-
-
-// 우리가 작성한 함수는 컴파일러에 의해 기계어로 번역되고
-// 코드 세그먼트에 저장된다. 쓰기는 불가능하고 읽기만 가능하다. 
-// 데이터 영역은 읽고 쓰기 가능하다 기본적으로 하지만 둘다 
-// 영역의 크기는 고정적이다. 
-
-
-//ASLR 이라고 보안 프로그램 때문에 코드,데이터, 스택, 힙 영역이
-// 주소값 위치가 맨날 바뀐다. 
-
-//함수를 Rvalue 임시 객체처럼 활용하고 싶다 -> 람다 []() {}
-// +[]() {} 하면 함수 포인터 된다고함? 
+// qsort는 c 아키텍쳐 알고리즘이다. 그레서 &말고 void*을 사용한다. 
+// sort는 c++ 아키텍쳐 알고리즘이다. 
