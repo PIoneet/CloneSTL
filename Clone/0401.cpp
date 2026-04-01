@@ -55,6 +55,14 @@ public:
         return id;
     }
 
+    string getName() const { //이렇게 하면 복사하지 않고 수정도 하지 않을 수 있음.
+        return name; //string을 반환하면 복사한 임시 객체를 반환함(Rvalue)
+    }
+
+    string& getName() {
+        return name;
+    }
+
 private:
     string name;
     size_t id;
@@ -74,34 +82,50 @@ int qsortGlobalAscender(const void* a, const void* b){
     return *(Dog*)a - *(Dog*)b;
 }
 
-array<Dog, 1000'0000> a;
+array<Dog, 1000> a;
 int main()
 {
     ofstream out{"ex.txt", ios::binary};
     auto start = std::chrono::high_resolution_clock::now();
     //qsort(a.data(), a.size(), sizeof(Dog), qsortGlobalAscender);
     //sort(a.begin(), a.end(), sortGlobalAscender);
+
+    // const Dog&으로 하면 따로 복사본을 만드는거 아니면 객체의 멤버를 수정못함.
+    for(const Dog& dogs: a){ //애초에 dogs.name을 바꿀거라 const를 쓰면 안됐음.
+        string&& sortName = dogs.getName(); //오른쪽은 Lvalue임. 
+        sort(sortName.begin(), sortName.end());
+    }
+
+
     sort(a.begin(), a.end(), [](const Dog& x, const Dog& y){
-        return x.getID() < y.getID();
+        return x.getName().size() > y.getName().size();
     });
     auto stop = std::chrono::high_resolution_clock::now();
     cout << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << endl;
     
-    for(const Dog& dogs: a | std::views::take(100)){
-        cout << dogs << '\n';
-    }
     
     out.write(reinterpret_cast<char*>(a.data()), a.size() * sizeof(Dog));
 
+    ifstream in{"ex.txt", ios::binary};
+    if(not in){
+        return 20260401;
+    }
+    in.read(reinterpret_cast<char*>(a.data()), sizeof(Dog));
+    for(const Dog& dogs: a | std::views::take(1000)){
+        cout << dogs << '\n';
+    }
 
 }
 
-// sort는 inline 방식을 써서 훨씬 빠르다. 내부적으로 std::swap을 써서 바꾼다.
-//이 함수는 이동 생성자와 이동 대입 연산자를 써서 소유권을 교체하기에 
-// string을 써도 소멸자가 2번 호출되는 Double Free 오류를 걱정 안해도 된다. 
+// read는 읽어올 파일의 데이터를 어디에 저장할지에 중점을 맞추어 놓았다. 
+
+// 바이너리 모드로 적었으면 읽을때도 무조건 바이너리 모드로 읽어야 한다. 
+// 다 안읽고 중간에 끊기거나 하는 문제가 생긴다.
 
 
+// 코드 94줄은 진짜 굉장히 재밌는 코드다. 
+// 잘 보면 const Dog& dogs로 루프를 돌고 있어서 dogs 객체의 name은 수정 절대 불가다. 
+//근데 나는 getName() const에서 임시 객체 복사본을 수정하면 된다고 생각했고
+//string&&으로 임시 객체 수명 연장도 했다. 하지만 결국 for문 돌면 복사본을 정렬하고
+// 바로 사라진다. 임시 객체이기 때문이다. 그래서 컴파일 오류는 없지만 정렬이 안된거다.
 
-// 와 아니 디버거 모드에서 sort 26660ms 그니까 26초 정도 나왔는데
-// -O3 Release 모드로 하니까 4초까지 줄었다. 이게 모드 간의 속도 차이가
-// 엄청나구나 싶었다. Inline 인라인이 디버거 모드에서는 오히려 독인가보네.
