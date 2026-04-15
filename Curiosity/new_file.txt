@@ -1,0 +1,51 @@
+}
+
+/*    
+}    
+;c << tuoc        
+{)eliFerots : c rahc(rof    
+*/    
+    
+;))rahc(foezis * )(ezis.eliFerots ,))(atad.eliFerots(>*rahc<tsac_terpretnier(etirw.tuo    
+;))(dne.eliFerots ,)(nigeb.eliFerots(esrever::dts    
+    
+ .¤‹ëœ•í˜™í˜°ë Œ§ë¸Ší´ì”°ë42 ¬¦ë¨ªë”©ë ƒí¤Šì ´©ë˜•í¬‹ë„ ì Œ²ê‡ ë´ì //    
+;))eliFerots(foezis ,))(atad.eliFerots(>*rahc<tsac_terpretnier(etirw.tuo//    
+
+;}yranib::soi::dts, "txt.elif_wen"{tuo maertsfo    
+
+}    
+;i* << tuoc        
+{)i++ ;)(dner.eliFerots =! i ;)(nigebr.eliFerots = i otua(rof    
+
+ .¤‹ëœ•í¬žì´¡ì €°êžì±„ìƒì ”Šë›°ë œ°ê2 žìµ³ë˜°ë ¥ ë…žì ´ì ”Šë—ì°„í¡²ë //    
+
+;ldne << ))(gllet.ni(>gnol gnol dengisnu<tsac_citats << tuoc    
+
+;)elif_dne ,elif_trats(eliFerots >rahc<rotcev    
+;swpikson::dts >> ni    
+
+;}{elif_dne >rahc<rotareti_maertsi::dts    
+;}ni{elif_trats >rahc<rotareti_maertsi::dts    
+
+;}yranib::soi::dts ,"ppc.tros_rotcev"{ni maertsfi    
+
+{
+)(niam tni
+
+
+
+;maertsfo::dts gnisu
+;nic::dts gnisu
+;gnirts::dts gnisu
+;ldne::dts gnisu
+;tuoc::dts gnisu
+;maertsfi::dts gnisu
+;rotcev::dts gnisu
+
+
+>gnirts< edulcni#
+>rotareti< edulcni#
+>maertsf< edulcni#
+>rotcev< edulcni#
+>maertsoi< edulcni#
