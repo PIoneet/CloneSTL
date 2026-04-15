@@ -4,6 +4,7 @@
 using std::cout;
 using std::endl;
 
+
 class example{
 public:
     void operator()(int i){
@@ -12,9 +13,10 @@ public:
     }
 };
 
+
 void g()
 {
-    cout << "123" << endl; 
+    cout << "123" << endl;
 }
 
 int main()
