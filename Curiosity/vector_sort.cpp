@@ -36,7 +36,7 @@ int main()
     // 이렇게 전달하면 스택 메모리 24바이트만 반환한다. 
     
     std::reverse(storeFile.begin(), storeFile.end());
-    out.write(reinterpret_cast<char*>(storeFile.data()), storeFile.size() * sizeof(char));
+    out.write(storeFile.data(), storeFile.size() * sizeof(char));
     
     /*
     for(char c : storeFile){
