@@ -55,7 +55,10 @@ int main()
         return a > b;
     });
 
-    std::copy(vs.begin(), vs.end(), std::ostream_iterator<string>(cout, "  "));
+
+    ofstream out{"new_file.txt", std::ios::binary};
+
+    std::copy(vs.begin(), vs.end(), std::ostream_iterator<string>(out, " h"));
     // 벡터에 들어간 내용을 스트림에 복사해서 출력하는 방식을 사용했음.
 
 }
